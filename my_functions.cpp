@@ -23,7 +23,8 @@ int WriteFile (char *file, int num, char *pointer[NLINES])
     assert (num);
     assert (pointer[NLINES]);
 
-    if (!(FILE* f = fopen (file, "w")))
+    FILE* f = fopen (file, "w");
+    if (!f)
     {
         printf ("This file - %s - doesn't exist!\n", file);
         return 1;
@@ -54,7 +55,8 @@ int ReadFile (char *file, char lines[NLINES][NCHARS])
     assert (file);
     assert (lines[NCHARS]);
 
-    if (!(FILE* f = fopen (file, "r")))
+    FILE* f = fopen (file, "r");
+    if (!f)
     {
         printf ("This file - %s - doesn't exist!\n", file);
         return 1;
@@ -66,6 +68,7 @@ int ReadFile (char *file, char lines[NLINES][NCHARS])
     while (fgets (lines[mline++], NLINES, f))
         ;
     fclose (f);
+
     return mline - 1;
 }
 
@@ -113,7 +116,6 @@ and else it returns this very symbol.
 
 char Down (char c)
 {
-    assert (c);
 
     if (c >= 'A' && c <= 'Z') return c - 'A' + 'a';
     else return c;
